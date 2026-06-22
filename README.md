@@ -6,8 +6,6 @@ This repository contains our Phase 1 submission for the IndabaX Botswana 2026 AI
 
 The project develops a multi-source forecasting framework to predict Botswana food inflation and explore how global economic shocks may propagate into human capital outcomes. The solution integrates shipping, energy, monetary policy, domestic food prices, and regional inflation indicators into a unified forecasting pipeline.
 
----
-
 ## Problem Statement
 
 Botswana is a small open economy that is highly exposed to global shocks.
@@ -22,8 +20,6 @@ The objective of this project is to:
 4. Explore regional inflation spillovers using cross-country HCP indicators.
 5. Produce evidence that can support downstream human-capital forecasting.
 
----
-
 ## Datasets Used
 
 This benchmark combines all five challenge datasets:
@@ -33,8 +29,6 @@ This benchmark combines all five challenge datasets:
 - Botswana Policy Rate
 - FAO Botswana Food Price Indicators
 - HCP Cross-Country Food Inflation Indicators
-
----
 
 ## Methodology
 
@@ -81,8 +75,6 @@ Two forecasting approaches were evaluated:
 - AdamW optimisation
 - Early stopping
 
----
-
 ## Validation Results
 
 | Model | RMSE | MAE | MAPE |
@@ -93,8 +85,6 @@ Two forecasting approaches were evaluated:
 ### Winner
 
 The classical forecasting model achieved the best validation performance.
-
----
 
 ## HCP Linkage Analysis
 
@@ -107,8 +97,6 @@ The project additionally investigates relationships between Botswana food inflat
 
 Ordinary Least Squares regression and lag-based analysis were used to quantify regional spillover effects.
 
----
-
 ## Repository Structure
 
 ```text
@@ -120,9 +108,6 @@ Ordinary Least Squares regression and lag-based analysis were used to quantify r
 ├── outputs/
 └── README.md
 ```
-
----
-
 ## Key Deliverables
 
 The repository contains:
@@ -135,8 +120,6 @@ The repository contains:
 - Regression results
 - Supporting tables and figures
 
----
-
 ## Technologies
 
 - Python
@@ -146,20 +129,6 @@ The repository contains:
 - TensorFlow / Keras
 - Statsmodels
 - Matplotlib
-
----
-
-## Author
-
-Ofile Seneo Mfetane
-
-BSc (Hons) Business Intelligence & Data Analytics
-
-Botswana Accountancy College
-
-IndabaX Botswana 2026 Participant
-
----
 
 ## License
 
