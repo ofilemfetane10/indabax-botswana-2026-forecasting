@@ -1,0 +1,63 @@
+
+FEATURE ENGINEERING REPORT
+===========================
+
+DATASETS INTEGRATED
+--------------------
+All five challenge datasets are used:
+  1. Baltic Dry Index (daily) — 01_baltic_dry_index_daily.csv
+  2. Brent crude oil (monthly) — 02_brent_crude_monthly.csv
+  3. Botswana policy rate (monthly) — 03_botswana_policy_rate.csv
+  4. FAO Botswana food prices (monthly) — 04_fao_botswana_prices.csv
+  5. HCP cross-country food inflation panel — 05_human_capital_project.csv
+
+TARGET VARIABLE
+---------------
+FAO_23014: Botswana food price inflation YoY (%)
+Forecast horizon: January 2024 – December 2024
+
+DAILY BDI → MONTHLY FEATURE TRANSFORMATION
+-------------------------------------------
+Daily BDI Close prices are aggregated into 14 monthly features rather than a
+simple mean, preserving information about shipping-cost volatility and stress
+intensity that monthly averaging discards:
+
+  BDI_mean               — average shipping cost level
+  BDI_std                — intra-month volatility (uncertainty measure)
+  BDI_max, BDI_min       — level extremes within the month
+  BDI_range              — BDI_max - BDI_min (intra-month stress amplitude)
+  BDI_monthly_return     — percentage change in BDI last vs prior month last
+  BDI_momentum_1m        — 1-month price difference (directional signal)
+  BDI_momentum_3m        — 3-month price difference (trend confirmation)
+  BDI_intramonth_return  — (last/first) - 1 within the same month
+  BDI_high_low_spread    — BDI_high_max - BDI_low_min across all days
+  BDI_spike_day          — count of days with |daily return| > 2x full-sample std
+  BDI_return_std         — standard deviation of daily returns
+  BDI_trading_days       — count of observations (data quality signal)
+
+MACRO AND REGIONAL FEATURES
+-----------------------------
+  Brent_USD_per_barrel   — direct fuel/transport cost driver
+  policy_rate            — Botswana monetary tightening/easing
+  FAO_23012, FAO_23013   — cereals and edible-oil sub-indices
+  ZAF/NAM/KEN/ZWE FAO food inflation — regional spillover proxies
+
+LAG STRUCTURE
+-------------
+All macro and regional features are lagged at 1, 2, 3, 6, 9, and 12 months.
+Rationale:
+  1–3 month lags: fuel and shipping cost pass-through into food prices
+  6–12 month lags: monetary policy transmission and seasonal price cycles
+
+LEAKAGE PREVENTION
+------------------
+All rolling features (3m, 6m, 12m means and 6m std of target) are shifted
+by 1 period before window computation. No actual 2024 values are used
+anywhere in feature construction or model training.
+
+CYCLIC CALENDAR ENCODING
+------------------------
+Month is encoded as sin(2π×month/12) and cos(2π×month/12) to handle
+December–January continuity and avoid ordinal bias.
+
+TOTAL FEATURE COUNT: 145

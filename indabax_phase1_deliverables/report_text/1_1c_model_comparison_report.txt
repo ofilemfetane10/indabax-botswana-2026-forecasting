@@ -1,0 +1,40 @@
+
+MODEL COMPARISON REPORT
+========================
+
+CLASSICAL MODEL: XGBoost
+--------------------------------------
+Architecture  : Gradient-boosted trees
+Hyperparameters:
+  n_estimators=400, max_depth=3, learning_rate=0.03
+  subsample=0.85, colsample_bytree=0.80
+  reg_lambda=5.0, reg_alpha=0.2, min_child_weight=3
+Feature set   : 145 lag and rolling features from all 5 datasets
+Forecast mode : Recursive 12-month (exogenous = seasonal-naive projection)
+Validation    : 2022-Jan to 2022-Dec and 2023-Jan to 2023-Dec
+
+DEEP LEARNING MODEL: LSTM
+--------------------------
+Architecture  : 2-layer LSTM (32 hidden units), batch_first=True
+Regularisation: dropout=0.30, AdamW (lr=1e-3, weight_decay=1e-3)
+Loss function : Huber loss (robust to outliers)
+Training      : Early stopping (patience=40 epochs), gradient clipping (max_norm=1.0)
+Lookback      : 24 months
+Horizon       : 12 months (direct multi-output prediction)
+Feature set   : 21 multivariate features
+
+VALIDATION METRICS
+------------------
+            model  RMSE   MAE   MAPE
+          XGBoost 4.391 3.695 79.624
+LSTM_2layer_24x12 5.887 5.242 76.581
+
+WINNER: XGBoost
+
+ANALYTICAL CONCLUSION
+---------------------
+With ~264 monthly training observations, gradient-boosted trees with hand-crafted
+lag features are expected to be competitive. The LSTM is included to satisfy the
+deep learning requirement and demonstrate whether sequence learning adds marginal
+value. Both models use only historically available information and are therefore
+directly deployable for real-time 12-month forecasting.

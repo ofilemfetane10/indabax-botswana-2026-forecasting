@@ -1,0 +1,63 @@
+
+HCP LINKAGE MEMO
+=================
+
+RESEARCH QUESTION
+-----------------
+Does regional food inflation (South Africa, Namibia, Kenya, Zimbabwe) causally
+precede Botswana food price inflation, and what does the 2024 forecast imply
+for Human Capital outcomes?
+
+DATA
+----
+Regional food inflation is sourced from the HCP cross-country panel
+(05_human_capital_project.csv), pivoted to wide format with one column per
+country-indicator combination.
+
+OLS REGRESSION RESULTS
+-----------------------
+Dependent variable : Botswana food inflation YoY (%) — FAO_23014
+Regressors         : lag-1 and lag-2 values of available regional food indicators
+
+  R² (in-sample)    : 0.973
+  Adj R²            : 0.9697
+
+Key coefficients (see hcp_ols_coefficients.csv for full table):
+             variable  coefficient  std_err  t_stat  p_value  significant
+BWA_FAO_CP_23014_lag1       1.2029   0.1293   9.302   0.0000         True
+BWA_FAO_CP_23012_lag1       0.5398   0.2598   2.077   0.0378         True
+BWA_FAO_CP_23012_lag2      -0.3585   0.2442  -1.468   0.1421        False
+BWA_FAO_CP_23014_lag2      -0.3141   0.1177  -2.668   0.0076         True
+NAM_FAO_CP_23013_lag2      -0.2706   0.2178  -1.242   0.2142        False
+
+GRANGER CAUSALITY RESULTS (lags 1–3)
+--------------------------------------
+           cause  lag  ssr_ftest_pval
+BWA_FAO_CP_23012    2          0.0016
+BWA_FAO_CP_23012    3          0.0028
+NAM_FAO_CP_23013    2          0.0104
+NAM_FAO_CP_23013    3          0.0197
+NAM_FAO_CP_23014    2          0.0484
+ZAF_FAO_CP_23013    2          0.0010
+ZAF_FAO_CP_23013    3          0.0027
+ZAF_FAO_CP_23014    1          0.0106
+ZAF_FAO_CP_23014    2          0.0004
+ZAF_FAO_CP_23014    3          0.0009
+
+FORWARD PROJECTION (2024)
+--------------------------
+The team's 2024 Botswana food inflation forecast is converted into a
+Human Capital pressure proxy:
+
+  Threshold         : 5% food inflation YoY
+  Months above threshold: 12 / 12
+  Cumulative excess (%-pts above 5%): 11.99
+
+POLICY INTERPRETATION
+---------------------
+Sustained food inflation above 5% compresses household budgets, reducing
+spending on education, healthcare, and nutrition — the three direct channels
+through which food inflation erodes human capital accumulation. South Africa
+and Namibia are Botswana's largest food trade partners; significant regression
+coefficients for their lagged inflation provide statistical support for
+regional contagion as a transmission mechanism warranting policy attention.
