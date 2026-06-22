@@ -1,0 +1,14 @@
+
+FEATURE ENGINEERING REPORT — DRAFT
+
+Datasets used:
+This benchmark integrates all five provided datasets: daily Baltic Dry Index, monthly Brent crude oil prices, Botswana policy rate, FAO Botswana price indicators, and the HCP cross-country panel.
+
+Daily-to-monthly BDI transformation:
+BDI is not reduced to a simple monthly mean. The monthly feature set includes BDI_mean, BDI_std, BDI_max, BDI_min, BDI_range, BDI_last, BDI_intramonth_return, BDI_momentum_1m, BDI_high_low_spread, and BDI_spike_day. These features capture shipping-cost level, volatility, intra-month stress, directional momentum, and extreme movement frequency.
+
+Lag structure:
+Features are lagged at 1, 2, 3, 6, 9, and 12 months. Short lags capture oil and shipping pass-through into imported food and transport costs; longer lags capture monetary policy transmission and annual seasonality. Target rolling means and rolling standard deviation are shifted by one month to prevent leakage.
+
+Forecast-window handling:
+The final forecast covers January 2024 to December 2024. The pipeline does not use actual 2024 values. Future exogenous variables are projected inside the recursive forecast loop using seasonal-naive forecasts; target lags are updated only using model predictions.

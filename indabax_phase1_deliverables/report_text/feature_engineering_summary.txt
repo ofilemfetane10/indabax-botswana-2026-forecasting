@@ -1,0 +1,8 @@
+
+Feature Engineering Summary
+
+This benchmark uses all five challenge datasets. Daily Baltic Dry Index data is transformed into monthly features beyond a simple mean: level, volatility, monthly range, last observed value, intra-month return, one-month momentum, high-low spread, trading-day count, and spike-day count. This preserves information about shipping stress intensity and instability that would be lost under naive monthly averaging.
+
+Brent crude oil is included as an international fuel and transport-cost driver. Botswana policy rate is included as a domestic monetary policy response variable, expected to affect inflation with longer lags. FAO Botswana variables provide the target and local price-index context. The HCP cross-country file is used to add South Africa, Namibia, Kenya, and Zimbabwe inflation features, reflecting regional trade exposure and possible spillovers into Botswana food prices.
+
+The forecast window is January 2024 to December 2024. No actual 2024 values are used. Future exogenous features are generated using a simple leakage-safe seasonal-naive projection inside the recursive forecast routine, while target lags are updated recursively from model predictions.
